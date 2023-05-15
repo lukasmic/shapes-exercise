@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { delay, Observable, of } from "rxjs";
-import { Circle, Rectangle, Shape, Square } from "./shape.model";
+import { Injectable } from '@angular/core';
+import { delay, Observable, of } from 'rxjs';
+import { Circle, Rectangle, Shape, Square } from './shape.model';
 
 @Injectable()
 export class ShapesService {
@@ -12,11 +12,11 @@ export class ShapesService {
     new Circle(14),
   ];
 
-  getShapes (): Observable<Shape[]> {
+  getShapes(): Observable<Shape[]> {
     return of(this.storedShapes).pipe(delay(Math.random() * 1000));
   }
 
-  saveShapes (shapes: Shape[]): Observable<Shape[]> {
+  saveShapes(shapes: Shape[]): Observable<Shape[]> {
     this.storedShapes = shapes;
     return of(this.storedShapes).pipe(delay(Math.random() * 1000));
   }
