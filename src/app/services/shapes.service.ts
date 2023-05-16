@@ -17,6 +17,7 @@ export class ShapesService {
   }
 
   saveShapes(shapes: Shape[]): Observable<Shape[]> {
+    console.log('shapes saved :>> ', shapes);
     this.storedShapes = shapes;
     return of(this.storedShapes).pipe(delay(Math.random() * 1000));
   }

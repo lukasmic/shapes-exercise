@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
     this.shapeAttribute2Control.setValue(this.shapeAttribute2);
   }
 
-  onSubmit(): void {
+  submit(): void {
     var currentShape = this.shapes[this.currentShapeId];
 
     switch (currentShape._type) {
@@ -88,6 +88,12 @@ export class AppComponent implements OnInit {
     }
     this.shapeAttribute1 = this.shapeAttribute1Control.value!;
     this.shapeAttribute2 = this.shapeAttribute2Control.value!;
+  }
+
+  save(): void {
+    this.shapesService.saveShapes(this.shapes).subscribe((shapes: Shape[]) => {
+      this.shapes = shapes;
+    });
   }
 
   selectPreviousShape(): void {
