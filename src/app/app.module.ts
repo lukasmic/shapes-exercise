@@ -3,19 +3,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { ShapesService } from './shapes.service';
+import { ShapesService } from './services/shapes.service';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    ReactiveFormsModule,
-    BrowserModule
-  ],
-  providers: [
-    ShapesService
-  ],
-  bootstrap: [AppComponent]
+  declarations: [AppComponent],
+  imports: [ReactiveFormsModule, BrowserModule],
+  providers: [ShapesService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

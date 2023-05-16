@@ -1,11 +1,16 @@
-<form id="shapeForm" [formGroup]="formGroup">
+<form id="shapeForm" [formGroup]="formGroup" (ngSubmit)="onSubmit()" ngNativeValidate>
   <label for="shapeAttribute1">Size1: </label>
-  <input id="shapeAttribute1" type="text" formControlName="shapeAttribute1Control">
+  <input required="true" min="0" id="shapeAttribute1" type="number" formControlName="shapeAttribute1Control">
   <div *ngIf="currentShape._type == 'Rectangle'">
     <label for="shapeAttribute2">Size2: </label>
     <input id="shapeAttribute2" type="text" formControlName="shapeAttribute2Control">
   </div>
-  <button (click)="onSubmit()">Submit</button>
+  <div>
+    <button id="submitButton" type="submit">Submit</button>
+    <button id="previousShape"(click)="selectPreviousShape()"><</button>
+    <label for="currentShapeId" id="currentShapeId" [textContent]="currentShapeId + 1"></label>
+    <button id="nextShape"(click)="selectNextShape()">></button>
+  </div>
 </form>
 
 <svg *ngIf="currentShape._type == 'Circle'" width="1500" height="1000">

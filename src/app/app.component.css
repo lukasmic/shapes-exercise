@@ -5,3 +5,16 @@
 input {
     margin-bottom: 10px;
 }
+
+button {
+    margin-right: 10px;
+}
+
+#submitButton {
+    margin-right: 40px;
+}
+
+#currentShapeId {
+    margin-right: 10px;
+    width: 100px;
+}

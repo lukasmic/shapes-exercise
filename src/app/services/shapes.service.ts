@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
-import { Circle, Rectangle, Shape, Square } from './shape.model';
+import { Circle, Rectangle, Shape, Square } from '../shape.model';
 
 @Injectable()
 export class ShapesService {
