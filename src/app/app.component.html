@@ -1,7 +1,7 @@
 <form id="shapeForm" [formGroup]="formGroup" (ngSubmit)="onSubmit()" ngNativeValidate>
   <label for="shapeAttribute1">Size1: </label>
   <input required="true" min="0" id="shapeAttribute1" type="number" formControlName="shapeAttribute1Control">
-  <div *ngIf="currentShape._type == 'Rectangle'">
+  <div *ngIf="shapes[this.currentShapeId]._type == 'Rectangle'">
     <label for="shapeAttribute2">Size2: </label>
     <input id="shapeAttribute2" type="text" formControlName="shapeAttribute2Control">
   </div>
@@ -13,14 +13,14 @@
   </div>
 </form>
 
-<svg *ngIf="currentShape._type == 'Circle'" width="1500" height="1000">
+<svg *ngIf="shapes[this.currentShapeId]._type == 'Circle'" width="1500" height="1000">
   <circle [attr.cx]="shapeAttribute1 * 1.3" [attr.cy]="shapeAttribute1 * 1.3" [attr.r]="shapeAttribute1" stroke="green" stroke-width="4" fill="yellow" />
 </svg>
 
-<svg *ngIf="currentShape._type == 'Square'" width="1500" height="1000">
+<svg *ngIf="shapes[this.currentShapeId]._type == 'Square'" width="1500" height="1000">
   <rect [attr.width]="shapeAttribute1" [attr.height]="shapeAttribute1" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" />
 </svg>
 
-<svg *ngIf="currentShape._type == 'Rectangle'" width="1500" height="1000">
+<svg *ngIf="shapes[this.currentShapeId]._type == 'Rectangle'" width="1500" height="1000">
     <rect [attr.width]="shapeAttribute1" [attr.height]="shapeAttribute2" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" />
 </svg>

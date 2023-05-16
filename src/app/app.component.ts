@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Shape } from './shape.model';
+import { Circle, Rectangle, Shape, Square } from './shape.model';
 import { ShapesService } from './services/shapes.service';
 
 @Component({
@@ -27,8 +27,7 @@ export class AppComponent implements OnInit {
     shapeAttribute1Control: this.shapeAttribute1Control,
     shapeAttribute2Control: this.shapeAttribute2Control,
   });
-  shapes!: Shape[];
-  currentShape: Shape = {} as Shape;
+  shapes: Shape[] = [{} as Shape];
   shapeAttribute1: number = 0;
   shapeAttribute2: number = 0;
 
@@ -37,8 +36,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.shapesService.getShapes().subscribe((shapes: Shape[]) => {
       this.shapes = shapes;
-      this.currentShape = this.shapes[0];
-      this.displayShape(this.currentShape);
+      this.currentShapeId = 1;
+      this.displayShape(this.shapes[this.currentShapeId]);
     });
   }
 
@@ -65,41 +64,45 @@ export class AppComponent implements OnInit {
   }
 
   onSubmit(): void {
-    switch (this.currentShape._type) {
+    var currentShape = this.shapes[this.currentShapeId];
+
+    switch (currentShape._type) {
       case 'Circle':
-        (this.currentShape as any).radius = this.shapeAttribute1;
-        this.shapes[this.currentShapeId] = this.currentShape as Shape;
+        this.shapes[this.currentShapeId] = new Circle(
+          this.shapeAttribute1Control.value!
+        );
         break;
       case 'Square':
-        (this.currentShape as any).size = this.shapeAttribute1;
+        this.shapes[this.currentShapeId] = new Square(
+          this.shapeAttribute1Control.value!
+        );
         break;
       case 'Rectangle':
-        (this.currentShape as any).length = this.shapeAttribute1;
-        (this.currentShape as any).width = this.shapeAttribute2;
+        this.shapes[this.currentShapeId] = new Rectangle(
+          this.shapeAttribute1Control.value!,
+          this.shapeAttribute2Control.value!
+        );
         break;
       default:
         break;
     }
-    this.shapes[this.currentShapeId] = this.currentShape as Shape;
     this.shapeAttribute1 = this.shapeAttribute1Control.value!;
     this.shapeAttribute2 = this.shapeAttribute2Control.value!;
   }
 
   selectPreviousShape(): void {
-    const index = this.shapes.indexOf(this.currentShape);
-    if (index > 0) {
-      this.currentShape = this.shapes[index - 1];
-      this.currentShapeId = index - 1;
-      this.displayShape(this.currentShape);
-    }
+    this.currentShapeId =
+      this.currentShapeId === 0
+        ? this.shapes.length - 1
+        : this.currentShapeId - 1;
+    this.displayShape(this.shapes[this.currentShapeId]);
   }
 
   selectNextShape(): void {
-    const index = this.shapes.indexOf(this.currentShape);
-    if (index < this.shapes.length - 1) {
-      this.currentShape = this.shapes[index + 1];
-      this.currentShapeId = index + 1;
-      this.displayShape(this.shapes[this.currentShapeId]);
-    }
+    this.currentShapeId =
+      this.currentShapeId === this.shapes.length - 1
+        ? 0
+        : this.currentShapeId + 1;
+    this.displayShape(this.shapes[this.currentShapeId]);
   }
 }
