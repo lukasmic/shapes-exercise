@@ -1,27 +1,40 @@
-<form id="shapeForm" [formGroup]="formGroup" (ngSubmit)="submit()" ngNativeValidate>
-    <label for="shapeAttribute1">{{nameOfAttribute1}}: </label>
-    <input class="form-control" id="shapeAttribute1" formControlName="attribute1" type="number" required min="0">
-    <div *ngIf="shapes[this.currentShapeId]._type == 'Rectangle'" style="display: inline">
-      <label for="shapeAttribute2">{{nameOfAttribute2}}: </label>
-      <input class="form-control" id="shapeAttribute2" type="number" formControlName="attribute2" required min="0">
-    </div>
+<app-add-shape *ngIf="addShapeToggle" (newShapeEvent)="add($event)"></app-add-shape>
+<button *ngIf="addShapeToggle" (click)="addShapeToggle = false">Cancel</button>
+
+<div *ngIf="!addShapeToggle">
+    <form *ngIf="shapes.length > 0" id="shapeForm" [formGroup]="formGroup" (ngSubmit)="submit()" ngNativeValidate>
+        <label for="shapeAttribute1">{{nameOfAttribute1}}: </label>
+        <input class="form-control" id="shapeAttribute1" formControlName="attribute1" type="number" required min="0">
+        <div *ngIf="shapes[this.currentShapeId]._type == 'Rectangle'" style="display: inline">
+            <label for="shapeAttribute2">{{nameOfAttribute2}}: </label>
+            <input class="form-control" id="shapeAttribute2" type="number" formControlName="attribute2" required min="0">
+        </div>
+        <div>
+            <button id="submitButton" [disabled]="shapes.length == 0" type="submit">Submit</button>
+            <button id="previousShape"(click)="selectPreviousShape()"><</button>
+            <label for="currentShapeId" id="currentShapeId" [textContent]="currentShapeId + 1"></label>
+            <button id="nextShape"(click)="selectNextShape()">></button>
+            <label for="areaSize">Area of shape: {{areaSize}}</label>
+        </div>
+    </form>
+        
     <div>
-      <button id="submitButton" type="submit">Submit</button>
-      <button id="Save"(click)="save()">Save</button>
-      <button id="previousShape"(click)="selectPreviousShape()"><</button>
-      <label for="currentShapeId" id="currentShapeId" [textContent]="currentShapeId + 1"></label>
-      <button id="nextShape"(click)="selectNextShape()">></button>
+        <button id="addButton" type="button" (click)="addShapeToggle = true">Add</button>
+        <button id="removeButton" [disabled]="shapes.length == 0" type="button" (click)="remove()">Remove</button>
+        <button id="saveButton"(click)="save()">Save</button>
     </div>
-  </form>
-  
-  <svg *ngIf="shapes[this.currentShapeId]._type == 'Circle'" width="1500" height="1000">
-    <circle [attr.cx]="shapeAttribute1 * 1.3" [attr.cy]="shapeAttribute1 * 1.3" [attr.r]="shapeAttribute1" stroke="green" stroke-width="4" fill="yellow" />
-  </svg>
-  
-  <svg *ngIf="shapes[this.currentShapeId]._type == 'Square'" width="1500" height="1000">
-    <rect [attr.width]="shapeAttribute1" [attr.height]="shapeAttribute1" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" />
-  </svg>
-  
-  <svg *ngIf="shapes[this.currentShapeId]._type == 'Rectangle'" width="1500" height="1000">
-      <rect [attr.width]="shapeAttribute1" [attr.height]="shapeAttribute2" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" />
-  </svg>
+
+    <div *ngIf="shapes.length > 0" id="drawnShapes">
+        <svg *ngIf="shapes[this.currentShapeId]._type == 'Circle'" width="1500" height="1000">
+            <circle [attr.cx]="shapeAttribute1 * 1.3" [attr.cy]="shapeAttribute1 * 1.3" [attr.r]="shapeAttribute1" stroke="green" stroke-width="4" fill="yellow" />
+        </svg>
+
+        <svg *ngIf="shapes[this.currentShapeId]._type == 'Square'" width="1500" height="1000">
+            <rect [attr.width]="shapeAttribute1" [attr.height]="shapeAttribute1" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" />
+        </svg>
+
+        <svg *ngIf="shapes[this.currentShapeId]._type == 'Rectangle'" width="1500" height="1000">
+            <rect [attr.width]="shapeAttribute1" [attr.height]="shapeAttribute2" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" />
+        </svg>
+    </div>
+</div>

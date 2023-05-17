@@ -1,0 +1,26 @@
+<select [(ngModel)]="selectedShapeType" (change)="onShapeSelect()">
+    <option *ngFor="let shapeType of shapeTypes" [ngValue]="shapeType">{{shapeType}}</option>
+</select>
+
+<form [formGroup]="formGroup" (ngSubmit)="addShape()" #form="ngForm" ngNativeValidate>
+    <div *ngIf="selectedShapeType == 'Circle'">
+        <label for="shapeAttribute1">{{nameOfAttribute1}}: </label>
+        <input class="form-control" id="shapeAttribute1" formControlName="attribute1" type="number" required min="1">
+    </div>
+
+    <div *ngIf="selectedShapeType == 'Square'">
+        <label for="shapeAttribute1">{{nameOfAttribute1}}: </label>
+        <input class="form-control" id="shapeAttribute1" formControlName="attribute1" type="number" required min="1">
+    </div>
+
+    <div *ngIf="selectedShapeType == 'Rectangle'">
+        <label for="shapeAttribute1">{{nameOfAttribute1}}: </label>
+        <input class="form-control" id="shapeAttribute1" formControlName="attribute1" type="number" required min="1">
+        <label for="shapeAttribute2">{{nameOfAttribute2}}: </label>
+        <input class="form-control" id="shapeAttribute2" type="number" formControlName="attribute2" required min="1">
+    </div>
+
+    <button type="submit" [disabled]="!form.form.valid">
+        Add Shape
+    </button>
+</form>

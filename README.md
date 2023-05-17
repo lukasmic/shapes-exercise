@@ -28,8 +28,8 @@ The form is saved by clicking "Save" button which should send all shapes back to
 
 Bonus points:
 
-- Calculate area of the shape and display it.
+- ~~Calculate area of the shape and display it.~~
 - ~~Implement validation: values cannot be negative~~
-- Implement functionality to add and remove shapes from the list.
+- ~~Implement functionality to add and remove shapes from the list.~~
 
 In this repository you are provided with a starter project. It includes [ShapesService](/src/app/shapes.service.ts) which mimics http backend communication with some pre-defined data.

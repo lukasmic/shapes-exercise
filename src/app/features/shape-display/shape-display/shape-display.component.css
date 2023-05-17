@@ -2,17 +2,12 @@
     margin-bottom: 10px;
 }
 
-input {
-    margin-bottom: 10px;
-    margin-right: 10px;
-}
-
-button {
-    margin-right: 10px;
-}
-
 #submitButton {
-    margin-right: 40px;
+    margin-right: 50px;
+}
+
+#saveButton {
+    margin-left: 50px;
 }
 
 #currentShapeId {

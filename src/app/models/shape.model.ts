@@ -1,4 +1,4 @@
-enum ShapeType {
+export enum ShapeType {
   Circle = 'Circle',
   Square = 'Square',
   Rectangle = 'Rectangle',
