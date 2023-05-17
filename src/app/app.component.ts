@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Circle, Rectangle, Shape, Square } from './shape.model';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { Circle, Rectangle, Shape, Square } from './models/shape.model';
 import { ShapesService } from './services/shapes.service';
 
 @Component({
@@ -9,24 +14,12 @@ import { ShapesService } from './services/shapes.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  // formGroup = this.fb.group({
-  //   shapeAttributeControl: [''],
-  //   shapeAttribute2Control: [''],
-  //   address: this.fb.group({
-  //     street: [''],
-  //     city: [''],
-  //     state: [''],
-  //     zip: ['']
-  //   }),
-  // });
-
-  currentShapeId: number = 0;
-  shapeAttribute1Control = new FormControl(0);
-  shapeAttribute2Control = new FormControl(0);
-  formGroup = new FormGroup({
-    shapeAttribute1Control: this.shapeAttribute1Control,
-    shapeAttribute2Control: this.shapeAttribute2Control,
+  formGroup: FormGroup = this.fb.group({
+    attribute1: [0],
+    attribute2: [0],
   });
+  disabled: boolean = true;
+  currentShapeId: number = 0;
   shapes: Shape[] = [{} as Shape];
   shapeAttribute1: number = 0;
   shapeAttribute2: number = 0;
@@ -36,7 +29,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.shapesService.getShapes().subscribe((shapes: Shape[]) => {
       this.shapes = shapes;
-      this.currentShapeId = 1;
+      this.currentShapeId = 0;
       this.displayShape(this.shapes[this.currentShapeId]);
     });
   }
@@ -59,8 +52,10 @@ export class AppComponent implements OnInit {
         break;
     }
 
-    this.shapeAttribute1Control.setValue(this.shapeAttribute1);
-    this.shapeAttribute2Control.setValue(this.shapeAttribute2);
+    this.formGroup.setValue({
+      attribute1: this.shapeAttribute1,
+      attribute2: this.shapeAttribute2,
+    });
   }
 
   submit(): void {
@@ -69,25 +64,26 @@ export class AppComponent implements OnInit {
     switch (currentShape._type) {
       case 'Circle':
         this.shapes[this.currentShapeId] = new Circle(
-          this.shapeAttribute1Control.value!
+          this.formGroup.value.attribute1
         );
         break;
       case 'Square':
         this.shapes[this.currentShapeId] = new Square(
-          this.shapeAttribute1Control.value!
+          this.formGroup.value.attribute1
         );
         break;
       case 'Rectangle':
         this.shapes[this.currentShapeId] = new Rectangle(
-          this.shapeAttribute1Control.value!,
-          this.shapeAttribute2Control.value!
+          this.formGroup.value.attribute1,
+          this.formGroup.value.attribute2
         );
         break;
       default:
         break;
     }
-    this.shapeAttribute1 = this.shapeAttribute1Control.value!;
-    this.shapeAttribute2 = this.shapeAttribute2Control.value!;
+
+    this.shapeAttribute1 = this.formGroup.value.attribute1;
+    this.shapeAttribute2 = this.formGroup.value.attribute2;
   }
 
   save(): void {
@@ -98,7 +94,7 @@ export class AppComponent implements OnInit {
 
   selectPreviousShape(): void {
     this.currentShapeId =
-      this.currentShapeId === 0
+      this.currentShapeId == 0
         ? this.shapes.length - 1
         : this.currentShapeId - 1;
     this.displayShape(this.shapes[this.currentShapeId]);
@@ -106,7 +102,7 @@ export class AppComponent implements OnInit {
 
   selectNextShape(): void {
     this.currentShapeId =
-      this.currentShapeId === this.shapes.length - 1
+      this.currentShapeId == this.shapes.length - 1
         ? 0
         : this.currentShapeId + 1;
     this.displayShape(this.shapes[this.currentShapeId]);

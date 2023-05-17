@@ -1,9 +1,9 @@
 <form id="shapeForm" [formGroup]="formGroup" (ngSubmit)="submit()" ngNativeValidate>
   <label for="shapeAttribute1">Property 1: </label>
-  <input required="true" min="0" id="shapeAttribute1" type="number" formControlName="shapeAttribute1Control">
+  <input class="form-control" id="shapeAttribute1" formControlName="attribute1" type="number" required min="0">
   <div *ngIf="shapes[this.currentShapeId]._type == 'Rectangle'">
     <label for="shapeAttribute2">Property 2: </label>
-    <input id="shapeAttribute2" type="text" formControlName="shapeAttribute2Control">
+    <input class="form-control" id="shapeAttribute2" type="number" formControlName="attribute2" required min="0">
   </div>
   <div>
     <button id="submitButton" type="submit">Submit</button>

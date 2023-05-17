@@ -1,6 +1,6 @@
 ## TODO
 
-- formControl
+- Dynamic form
 - Instead of string for shape format, an enum would be a good idea
 - Add bootsrap for buttons and stuff
 - I should put each shape type in a separate component. Would reduce the number of cases and increase scalability
