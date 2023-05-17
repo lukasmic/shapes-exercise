@@ -9,3 +9,4 @@
 
 - Pretty styling - not great at it and incredibly creative to be honest. Hopefully having a UI/UX expert mitigates this.
 - Screen adaptability - we don't aim projects for mobile devices use AFAIK?
+- Tests - would take a bit too much time right now
