@@ -1,8 +1,8 @@
 <form id="shapeForm" [formGroup]="formGroup" (ngSubmit)="submit()" ngNativeValidate>
-  <label for="shapeAttribute1">Property 1: </label>
+  <label for="shapeAttribute1">{{nameOfAttribute1}}: </label>
   <input class="form-control" id="shapeAttribute1" formControlName="attribute1" type="number" required min="0">
-  <div *ngIf="shapes[this.currentShapeId]._type == 'Rectangle'">
-    <label for="shapeAttribute2">Property 2: </label>
+  <div *ngIf="shapes[this.currentShapeId]._type == 'Rectangle'" style="display: inline">
+    <label for="shapeAttribute2">{{nameOfAttribute2}}: </label>
     <input class="form-control" id="shapeAttribute2" type="number" formControlName="attribute2" required min="0">
   </div>
   <div>

@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Circle, Rectangle, Shape, Square } from './models/shape.model';
 import { ShapesService } from './services/shapes.service';
 
@@ -14,15 +9,17 @@ import { ShapesService } from './services/shapes.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+  disabled: boolean = true;
+  currentShapeId: number = 0;
+  shapes: Shape[] = [{} as Shape];
+  nameOfAttribute1: string = 'Attribute 1';
+  shapeAttribute1: number = 0;
+  nameOfAttribute2: string = 'Attribute 2';
+  shapeAttribute2: number = 0;
   formGroup: FormGroup = this.fb.group({
     attribute1: [0],
     attribute2: [0],
   });
-  disabled: boolean = true;
-  currentShapeId: number = 0;
-  shapes: Shape[] = [{} as Shape];
-  shapeAttribute1: number = 0;
-  shapeAttribute2: number = 0;
 
   constructor(private shapesService: ShapesService, private fb: FormBuilder) {}
 
@@ -37,14 +34,18 @@ export class AppComponent implements OnInit {
   displayShape(shape: Shape): void {
     switch (shape._type) {
       case 'Circle':
+        this.nameOfAttribute1 = 'Radius';
         this.shapeAttribute1 = (shape as any).radius;
         this.shapeAttribute2 = 0;
         break;
       case 'Square':
+        this.nameOfAttribute1 = 'Size';
         this.shapeAttribute1 = (shape as any).size;
         this.shapeAttribute2 = 0;
         break;
       case 'Rectangle':
+        this.nameOfAttribute1 = 'Length';
+        this.nameOfAttribute2 = 'Width';
         this.shapeAttribute1 = (shape as any).length;
         this.shapeAttribute2 = (shape as any).width;
         break;
